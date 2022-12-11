@@ -1,15 +1,20 @@
 package com.autohandel;
 
 import com.autohandel.vehicles.Car;
+import com.autohandel.vehicles.CarType;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Autohandel!");
-        Player player = new Player();
-        player.vehiclesOwned.add(new Car(5000.0, "Volkswagen", "Polo", 300000, "silver", "budget", true, true, true, true, true));
-        System.out.println(player.vehiclesOwned);
-        Object myObj = "haha";
-        System.out.println(myObj);
 
+        Car myCar = new Car();
+        System.out.println(myCar);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(new Car());
+        }
     }
 }
