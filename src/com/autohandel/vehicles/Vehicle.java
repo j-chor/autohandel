@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 abstract public class Vehicle {
-    Double value;
+    public Double value;
     String brand;
     String model;
     Integer mileage;
@@ -34,25 +34,25 @@ abstract public class Vehicle {
 
     }
 
-    public void fix(String part) {
+    public void fix(Integer part) {
         switch (part) {
-            case "brakes":
+            case 1:
                 this.brakes = true;
                 this.value *= 1.1;
                 break;
-            case "suspension":
+            case 2:
                 this.suspension = true;
                 this.value *= 1.2;
                 break;
-            case "engine":
+            case 3:
                 this.engine = true;
                 this.value *= 2;
                 break;
-            case "body":
+            case 4:
                 this.body = true;
                 this.value *= 1.5;
                 break;
-            case "transmission":
+            case 5:
                 this.transmission = true;
                 this.value *= 1.5;
                 break;

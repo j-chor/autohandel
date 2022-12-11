@@ -7,7 +7,8 @@ public class Car extends Vehicle {
 
     private static final CarType[] mazda = {new CarType("Mazda", "RX-7", 65000.0)};
     private static final CarType[] volkswagen = {new CarType("Volkswagen", "Golf", 20000.0),
-            new CarType("Volkswagen", "Polo", 9000.0)};
+            new CarType("Volkswagen", "Polo", 9000.0),
+            new CarType("Volkswagen", "Passat", 30000.0)};
     private static final CarType[] audi = {new CarType("Audi", "A7", 130000.0)};
     private static final CarType[] skoda = {new CarType("Skoda", "Fabia", 15000.0)};
 //    private CarType[] ford;
@@ -25,8 +26,8 @@ public class Car extends Vehicle {
 
     public Car() {
         super();
-        Integer rnd = ThreadLocalRandom.current().nextInt(0, brands.length - 1);
-        CarType carType = brands[rnd][brands[rnd].length - 1];
+        Integer rnd = ThreadLocalRandom.current().nextInt(0, brands.length);
+        CarType carType = brands[rnd][ThreadLocalRandom.current().nextInt(0, brands[rnd].length) ];
         this.value = carType.baseValue * ThreadLocalRandom.current().nextDouble(0.9, 1.1) * (this.brakes ? 1d : 0.95d)
                 * (this.suspension ? 1d : 0.85d) * (this.engine ? 1d : 0.55d) * (this.body ? 1d : 0.75d) * (this.transmission ? 1d : 0.75d);
         // ^ Uwaga copypaste w każdym rodzaju smaochodu ^
