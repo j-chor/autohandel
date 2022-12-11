@@ -1,5 +1,6 @@
 package com.autohandel.vehicles;
 
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 abstract public class Vehicle {
@@ -17,9 +18,10 @@ abstract public class Vehicle {
 
     static final String[] colors = {"white", "black", "red", "yellow", "silver", "green"};
 
-    public boolean getRandomBoolean(Double chance) {
+    public Boolean getRandomBoolean(Double chance) {
         return ThreadLocalRandom.current().nextDouble(0.0, 1.0) > (1.0 - chance);
     }
+
 
     public Vehicle() {
         this.mileage = ThreadLocalRandom.current().nextInt(0, 350000);
@@ -29,6 +31,32 @@ abstract public class Vehicle {
         this.engine = getRandomBoolean(0.9);
         this.body = getRandomBoolean(0.7);
         this.transmission = getRandomBoolean(0.7);
+
+    }
+
+    public void fix(String part) {
+        switch (part) {
+            case "brakes":
+                this.brakes = true;
+                this.value *= 1.1;
+                break;
+            case "suspension":
+                this.suspension = true;
+                this.value *= 1.2;
+                break;
+            case "engine":
+                this.engine = true;
+                this.value *= 2;
+                break;
+            case "body":
+                this.body = true;
+                this.value *= 1.5;
+                break;
+            case "transmission":
+                this.transmission = true;
+                this.value *= 1.5;
+                break;
+        }
 
     }
 
