@@ -1,12 +1,12 @@
 package com.autohandel.vehicles;
 
-public class CarType {
+public class VehicleModel {
     String brand;
     String model;
     String classification;
     Double baseValue;
 
-    public CarType(String brand, String model, Double baseValue) {
+    public VehicleModel(String brand, String model, Double baseValue) {
         this.brand = brand;
         this.model = model;
         this.baseValue = baseValue;

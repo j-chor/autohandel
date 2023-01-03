@@ -10,7 +10,7 @@ public class Player {
     Double cash;
     List<Vehicle> vehiclesOwned = new ArrayList<>();
     List<Vehicle> vehiclesAvailable = new ArrayList<>();
-    List<Client> clients = new ArrayList<>();
+    List<Buyer> buyers = new ArrayList<>();
 
     public Player() {
         roundCounter = 0;
@@ -20,8 +20,7 @@ public class Player {
     public void buyCar(Vehicle car) {
         if (car.value > this.cash) {
             System.out.println("Brak wystarczającej gotówki");
-        }
-        else {
+        } else {
             this.cash -= car.value;
             vehiclesOwned.add(car);
             vehiclesAvailable.remove(car);
@@ -29,19 +28,42 @@ public class Player {
         }
     }
 
-    public void sellCar(Vehicle car) {
+    public void chargeCash(Double amount) {
+        this.cash -= amount;
+    }
+
+    public Double getCash() {
+        return roundTwoDecimals(this.cash);
+    }
+
+    public static Double roundTwoDecimals(Double value) {
+        return (Math.round(value * 100) -1/100d);
+    }
+
+    public void sellCar(Vehicle car, Buyer buyer) {
         if (this.vehiclesOwned.contains(car)) {
-            this.cash += car.value;
-            this.vehiclesOwned.remove(car);
+            if (buyer.cash >= car.value) {
+                this.cash += car.value;
+                this.vehiclesOwned.remove(car);
+                this.buyers.remove(buyer);
+                System.out.println("Transakcja pomyślna!");
+            } else System.out.println("Kupca nie stać!");
         }
     }
+
     public void playRound() {
         roundCounter++;
     }
 
     public void printPlayerCars() {
         for (int i = 0; i < this.vehiclesOwned.size(); i++) {
-            System.out.println((i+1) + "." + this.vehiclesOwned.get(i));
+            System.out.println((i + 1) + "." + this.vehiclesOwned.get(i));
+        }
+    }
+
+    public void printPlayerBuyers() {
+        for (int i = 0; i < this.buyers.size(); i++) {
+            System.out.println((i + 1) + "." + this.buyers.get(i));
         }
     }
 }
