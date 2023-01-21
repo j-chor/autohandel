@@ -7,13 +7,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static com.autohandel.Player.roundTwoDecimals;
 
-abstract public class Vehicle {
+abstract public class Vehicle implements HasType, Damageable, HasBrand{
     public Double value;
+    public String type;
     String brand;
     String model;
     Integer mileage;
     String color;
     String classification;
+    // true = sprawne
     Boolean brakes;
     Boolean suspension;
     Boolean engine;
@@ -96,36 +98,46 @@ abstract public class Vehicle {
                     this.brakes = true;
                     this.value *= 1.1;
                     System.out.println("Naprawiono hamulce");
-                    break;
-                } else System.out.println("Naprawa nieudana");
+                } else {
+                    System.out.println("Naprawa nieudana");
+                }
+                break;
             case 2:
                 if (fixSuccess) {
                     this.suspension = true;
                     this.value *= 1.2;
                     System.out.println("Naprawiono zawieszenie");
-                    break;
-                } else System.out.println("Naprawa nieudana");
+                } else {
+                    System.out.println("Naprawa nieudana");
+                }
+                break;
             case 3:
                 if (fixSuccess) {
                     this.engine = true;
                     this.value *= 2;
                     System.out.println("Naprawiono silnik");
-                    break;
-                } else System.out.println("Naprawa nieudana");
+                } else {
+                    System.out.println("Naprawa nieudana");
+                }
+                break;
             case 4:
                 if (fixSuccess) {
                     this.body = true;
                     this.value *= 1.5;
                     System.out.println("Naprawiono karoserię");
-                    break;
-                } else System.out.println("Naprawa nieudana");
+                } else {
+                    System.out.println("Naprawa nieudana");
+                }
+                break;
             case 5:
                 if (fixSuccess) {
                     this.transmission = true;
                     this.value *= 1.5;
                     System.out.println("Naprawiono skrzynię biegów");
-                    break;
-                } else System.out.println("Naprawa nieudana");
+                } else {
+                    System.out.println("Naprawa nieudana");
+                }
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + part);
         }
@@ -152,6 +164,15 @@ abstract public class Vehicle {
         }
     }
 
+    @Override
+    public Boolean getDamage() { //true = has damage, false = no damage
+        return !(this.brakes & this.suspension & this.body & this.transmission & this.engine);
+    }
+
+    @Override
+    public String getBrand() {
+        return brand;
+    }
     @Override
     public String toString() {
         return brand + " " + model + ", Wartość: " + roundTwoDecimals(value)

@@ -2,8 +2,8 @@ package com.autohandel.vehicles;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Car extends Vehicle {
-
+public class Car extends Vehicle implements HasType{
+    public final String type = "car";
     private static final VehicleModel[] mazda = {new VehicleModel("Mazda", "RX-7", 65000.0)};
     private static final VehicleModel[] volkswagen = {new VehicleModel("Volkswagen", "Golf", 20000.0),
             new VehicleModel("Volkswagen", "Polo", 9000.0),
@@ -21,12 +21,12 @@ public class Car extends Vehicle {
 //    private CarType[] hyundai;
 //    private CarType[] ferrari;, ford, toyota, mercedes, fiat, subaru, renault, mitsubishi, fiat, honda, hyundai, ferrari
 
-    private static final VehicleModel[][] brands = {mazda, volkswagen, audi, skoda};
+    public static final VehicleModel[][] carBrands = {mazda, volkswagen, audi, skoda};
 
     public Car() {
         super();
-        Integer rnd = ThreadLocalRandom.current().nextInt(0, brands.length);
-        VehicleModel vehicleModel = brands[rnd][ThreadLocalRandom.current().nextInt(0, brands[rnd].length) ];
+        Integer rnd = ThreadLocalRandom.current().nextInt(0, carBrands.length);
+        VehicleModel vehicleModel = carBrands[rnd][ThreadLocalRandom.current().nextInt(0, carBrands[rnd].length) ];
         this.value = vehicleModel.baseValue * ThreadLocalRandom.current().nextDouble(0.9, 1.1) * (this.brakes ? 1d : 0.95d)
                 * (this.suspension ? 1d : 0.85d) * (this.engine ? 1d : 0.55d) * (this.body ? 1d : 0.75d) * (this.transmission ? 1d : 0.75d);
         // ^ Uwaga copypaste w każdym rodzaju smaochodu ^
@@ -35,5 +35,10 @@ public class Car extends Vehicle {
         this.classification = vehicleModel.classification;
     }
 
+
+    @Override
+    public String getType() {
+        return "car";
+    }
 
 }

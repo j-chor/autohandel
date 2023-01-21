@@ -37,16 +37,25 @@ public class Player {
     }
 
     public static Double roundTwoDecimals(Double value) {
-        return (Math.round(value * 100) -1/100d);
+        return (Math.round(value * 100)/100d);
     }
 
     public void sellCar(Vehicle car, Buyer buyer) {
         if (this.vehiclesOwned.contains(car)) {
             if (buyer.cash >= car.value) {
-                this.cash += car.value;
-                this.vehiclesOwned.remove(car);
-                this.buyers.remove(buyer);
-                System.out.println("Transakcja pomyślna!");
+                if (buyer.typeWanted == car.getType()) {
+                    if (buyer.brandWanted == car.getBrand()) {
+                        if (!buyer.damageWanted || !(buyer.damageWanted || car.getDamage())) {
+                            this.cash += car.value;
+                            this.vehiclesOwned.remove(car);
+                            this.buyers.remove(buyer);
+                            System.out.println("Transakcja pomyślna!");
+                        }
+                        else System.out.println("Kupiec nie chce zepsutego pojazdu!");
+                    }
+                    else System.out.println("Kupiec che inną markę!");
+                }
+                else System.out.println("Zły rodzaj pojazdu!");
             } else System.out.println("Kupca nie stać!");
         }
     }

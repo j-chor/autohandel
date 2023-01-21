@@ -89,6 +89,7 @@ public class Gameplay {
         System.out.println("Twoja kasa: " + player.getCash());
         System.out.println("Twoje samochody: ");
         player.printPlayerCars();
-
+        System.out.println("Dostępni kupcy: ");
+        player.printPlayerBuyers();
     }
 }

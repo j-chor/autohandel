@@ -18,4 +18,8 @@ public class VehicleModel {
         }
         else this.classification = "Budget";
     }
+
+    public String getBrand() {
+        return brand;
+    }
 }
