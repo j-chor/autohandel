@@ -15,13 +15,9 @@ public class Main {
 
         Player player = new Player();
 
-        for (int i = 0; i < 9; i++) {
-            player.vehiclesAvailable.add(new Car());
-        }
+        player.generateCars(10);
 
-        for (int i = 0; i < 5; i++) {
-            player.buyers.add(new Buyer());
-        }
+        player.generateBuyers(5);
 
         while (true) {
 

@@ -1,5 +1,6 @@
 package com.autohandel;
 
+import com.autohandel.vehicles.Car;
 import com.autohandel.vehicles.Vehicle;
 
 import java.util.ArrayList;
@@ -32,6 +33,18 @@ public class Player {
         this.cash -= amount;
     }
 
+    public void generateCars(Integer amount) {
+        for (int i = 0; i < amount; i++) {
+            this.vehiclesAvailable.add(new Car());
+        }
+    }
+
+    public void generateBuyers(Integer amount) {
+        for (int i = 0; i < amount; i++) {
+            this.buyers.add(new Buyer());
+        }
+
+    }
     public Double getCash() {
         return roundTwoDecimals(this.cash);
     }
@@ -45,11 +58,12 @@ public class Player {
             if (buyer.cash >= car.value) {
                 if (buyer.typeWanted == car.getType()) {
                     if (buyer.brandWanted == car.getBrand()) {
-                        if (!buyer.damageWanted || !(buyer.damageWanted || car.getDamage())) {
+                        if (buyer.damageWanted || !car.getDamage()) {
                             this.cash += car.value;
                             this.vehiclesOwned.remove(car);
                             this.buyers.remove(buyer);
                             System.out.println("Transakcja pomyślna!");
+                            this.generateBuyers(2);
                         }
                         else System.out.println("Kupiec nie chce zepsutego pojazdu!");
                     }

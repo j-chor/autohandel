@@ -36,6 +36,8 @@ public class Gameplay {
         }
         Integer choice = scanner.nextInt();
         player.buyCar(player.vehiclesAvailable.get(choice - 1));
+        player.vehiclesAvailable.clear();
+        player.generateCars(10);
     }
 
     private static void sellMenu(Player player) {
