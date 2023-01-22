@@ -2,6 +2,7 @@ package com.autohandel;
 
 import java.util.Scanner;
 
+import static com.autohandel.Buyer.randomInt;
 import static com.autohandel.vehicles.Vehicle.*;
 
 public class Gameplay {
@@ -11,7 +12,8 @@ public class Gameplay {
         System.out.println("1. Kup auto\n" +
                 "2. Sprzedaj auto\n" +
                 "3. Napraw auto\n" +
-                "4. Wyświetl info");
+                "4. Kampanie marketingowe\n" +
+                "5. Wyświetl info");
         Integer choice = scanner.nextInt();
         switch (choice) {
             case 1:
@@ -24,7 +26,31 @@ public class Gameplay {
                 fixMenu(player);
                 break;
             case 4:
+                marketingMenu(player);
+                break;
+            case 5:
                 infoMenu(player);
+                break;
+        }
+    }
+
+    private static void marketingMenu(Player player) {
+        System.out.println("1. Reklama w gazecie - 8000.00\n" +
+                "2. Reklama w internecie - 2000.00");
+        Integer choice1 = scanner.nextInt();
+        switch (choice1) {
+            case 1:
+                Integer buyersAmount = randomInt(0,9);
+                if (buyersAmount == 0) {
+                    System.out.println("Reklama nie przyniosła nowych klientów...");
+                    break;
+                }
+                player.generateBuyers(buyersAmount);
+                System.out.println("Reklama przyniosła " + buyersAmount + "nowych klientów");
+                break;
+            case 2:
+                player.generateBuyers(1);
+                System.out.println("Reklama skutecznie przyniosła 1 klienta");
                 break;
         }
     }
