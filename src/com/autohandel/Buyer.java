@@ -7,7 +7,8 @@ import static com.autohandel.vehicles.DeliveryCar.deliveryBrands;
 import static com.autohandel.vehicles.Motorcycle.motorcycleBrands;
 
 public class Buyer {
-    final String brandWanted;
+    final String brandWanted1;
+    final String brandWanted2;
     final Double cash;
     final String typeWanted;
     final Boolean damageWanted;
@@ -34,14 +35,16 @@ public class Buyer {
     public Buyer() {
         this.cash = ThreadLocalRandom.current().nextDouble(10000, 200000);
         this.typeWanted = randomType();
-        this.brandWanted = randomBrand(this.typeWanted);
+        this.brandWanted1 = randomBrand(this.typeWanted);
+        this.brandWanted2 = randomBrand(this.typeWanted);
         this.damageWanted = ThreadLocalRandom.current().nextDouble(0.0, 1.0) > 0.85;
     }
 
     @Override
     public String toString() {
         return "Buyer{" +
-                "brandWanted='" + brandWanted + '\'' +
+                "brandWanted1='" + brandWanted1 + '\'' +
+                ", brandWanted2='" + brandWanted2 + '\'' +
                 ", cash=" + cash +
                 ", typeWanted='" + typeWanted + '\'' +
                 ", damageWanted=" + damageWanted +

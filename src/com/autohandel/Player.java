@@ -57,7 +57,7 @@ public class Player {
         if (this.vehiclesOwned.contains(car)) {
             if (buyer.cash >= car.value) {
                 if (buyer.typeWanted == car.getType()) {
-                    if (buyer.brandWanted == car.getBrand()) {
+                    if (buyer.brandWanted1 == car.getBrand() || buyer.brandWanted2 == car.getBrand() ) {
                         if (buyer.damageWanted || !car.getDamage()) {
                             this.cash += car.value;
                             this.vehiclesOwned.remove(car);

@@ -21,6 +21,7 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
     Boolean engine;
     Boolean body;
     Boolean transmission;
+    Boolean isClean;
 
     public Boolean getPart(Integer part) {
         switch (part) {
@@ -48,6 +49,7 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
         this.engine = getRandomBoolean(0.9);
         this.body = getRandomBoolean(0.7);
         this.transmission = getRandomBoolean(0.7);
+        this.isClean = false;
 
     }
 
@@ -84,6 +86,12 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
             default:
                 return null;
         }
+    }
+
+    public void washCar(Player player) {
+        player.chargeCash(100.0);
+        this.isClean = true;
+        System.out.println("Umyto samochód");
     }
 
     public void fix(Integer part, Boolean fixSuccess, Boolean breakSuccess, Player player, Double priceMultiplier) {
@@ -176,11 +184,11 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
     @Override
     public String toString() {
         return brand + " " + model + ", Wartość: " + roundTwoDecimals(value)
-                + ", Klasa pojazdu: " + this.classification + ", Przebieg: " + mileage + ", Sprawność: " + "Hamulce: "
+                + ", Klasa pojazdu: " + this.classification + ", Typ pojazdu: " + this.type + ", Przebieg: " + mileage + ", Sprawność: " + "Hamulce: "
                 + getPartStatus(this.brakes) + ", Zawieszenie: "
                 + getPartStatus(this.suspension) + ", Silnik: " + getPartStatus(this.engine)
                 + ", Karoseria: " + getPartStatus(this.body) + ", Skrzynia biegów: "
-                + getPartStatus(this.transmission);
+                + getPartStatus(this.transmission) + ", Czystość: " + this.isClean;
     }
 
     //    nwm na chuj mi to:

@@ -11,7 +11,7 @@ public class Gameplay {
     public static void mainMenu(Player player) {
         System.out.println("1. Kup auto\n" +
                 "2. Sprzedaj auto\n" +
-                "3. Napraw auto\n" +
+                "3. Napraw lub umyj auto\n" +
                 "4. Kampanie marketingowe\n" +
                 "5. Wyświetl info");
         Integer choice = scanner.nextInt();
@@ -40,7 +40,7 @@ public class Gameplay {
         Integer choice1 = scanner.nextInt();
         switch (choice1) {
             case 1:
-                Integer buyersAmount = randomInt(0,9);
+                Integer buyersAmount = randomInt(0, 9);
                 if (buyersAmount == 0) {
                     System.out.println("Reklama nie przyniosła nowych klientów...");
                     break;
@@ -85,8 +85,13 @@ public class Gameplay {
                 "2. Zawieszenie: " + getPartStatus(player.vehiclesOwned.get(choice1 - 1).getPart(2)) + "\n" +
                 "3. Silnik: " + getPartStatus(player.vehiclesOwned.get(choice1 - 1).getPart(3)) + "\n" +
                 "4. Karoseria: " + getPartStatus(player.vehiclesOwned.get(choice1 - 1).getPart(4)) + "\n" +
-                "5. Skrzynia biegów: " + getPartStatus(player.vehiclesOwned.get(choice1 - 1).getPart(5)) + "\n");
+                "5. Skrzynia biegów: " + getPartStatus(player.vehiclesOwned.get(choice1 - 1).getPart(5)) + "\n" +
+                "6. Umyj auto" + "\n");
         Integer choice2 = scanner.nextInt();
+        if (choice2 == 6) {
+            player.vehiclesOwned.get(choice1 - 1).washCar(player);
+            return;
+        }
         System.out.println("Wybierz mechanika: \n" +
                 "1. Janusz: " + calculateFixPrice(choice2, 1) + "\n" +
                 "2. Marian: " + calculateFixPrice(choice2, 2) + "\n" +
@@ -110,7 +115,6 @@ public class Gameplay {
         }
         player.vehiclesOwned.get(choice1 - 1).fix(choice2, fixSuccess, breakSuccess, player, priceMultiplier);
     }
-
 
 
     private static void infoMenu(Player player) {
