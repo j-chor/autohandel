@@ -26,8 +26,10 @@ public class Main {
                 mainMenu(player);
             } catch (InputMismatchException e) {
                 System.out.println("Zła wartość");
-            } Gameplay.scanner.nextLine();
-        } while (true);
+            }
+            Gameplay.scanner.nextLine();
+        } while (player.getCash() < 200000.00);
+        System.out.println("Udało ci się podowoić ilość gotówki - wygrałeś! Liczba ruchów: " + player.getRoundCounter());
 
     }
 }
