@@ -31,6 +31,9 @@ public class Gameplay {
             case 5:
                 infoMenu(player);
                 break;
+            default:
+                System.out.println("oops");
+                break;
         }
     }
 
@@ -53,6 +56,7 @@ public class Gameplay {
                 System.out.println("Reklama skutecznie przyniosła 1 klienta");
                 break;
         }
+        player.finishRound();
     }
 
     private static void buyMenu(Player player) {

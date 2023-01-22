@@ -2,6 +2,7 @@ package com.autohandel;
 
 import com.autohandel.vehicles.Car;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static com.autohandel.Gameplay.mainMenu;
@@ -19,11 +20,14 @@ public class Main {
 
         player.generateBuyers(5);
 
-        while (true) {
-
-            mainMenu(player);
-
-        }
+        do {
+            try {
+                System.out.println("Tura nr " + player.getRoundCounter());
+                mainMenu(player);
+            } catch (InputMismatchException e) {
+                System.out.println("Zła wartość");
+            } Gameplay.scanner.nextLine();
+        } while (true);
 
     }
 }

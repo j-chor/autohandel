@@ -21,7 +21,7 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
     Boolean engine;
     Boolean body;
     Boolean transmission;
-    Boolean isClean;
+    public Boolean isClean;
 
     public Boolean getPart(Integer part) {
         switch (part) {
@@ -149,6 +149,7 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
             default:
                 throw new IllegalStateException("Unexpected value: " + part);
         }
+        player.finishRound();
 
     }
 

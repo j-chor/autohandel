@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private Integer roundCounter;
+    public Integer getRoundCounter() {
+        return roundCounter;
+    }
+
+    private Integer roundCounter = 0;
     Double cash;
     List<Vehicle> vehiclesOwned = new ArrayList<>();
     List<Vehicle> vehiclesAvailable = new ArrayList<>();
@@ -18,6 +22,9 @@ public class Player {
         cash = 100000.0;
     }
 
+    public void finishRound() {
+        roundCounter++;
+    }
     public void buyCar(Vehicle car) {
         if (car.value > this.cash) {
             System.out.println("Brak wystarczającej gotówki");
@@ -26,6 +33,7 @@ public class Player {
             vehiclesOwned.add(car);
             vehiclesAvailable.remove(car);
             System.out.println("Kupiłeś pojazd!");
+            this.finishRound();
         }
     }
 
@@ -59,11 +67,15 @@ public class Player {
                 if (buyer.typeWanted == car.getType()) {
                     if (buyer.brandWanted1 == car.getBrand() || buyer.brandWanted2 == car.getBrand() ) {
                         if (buyer.damageWanted || !car.getDamage()) {
-                            this.cash += car.value;
-                            this.vehiclesOwned.remove(car);
-                            this.buyers.remove(buyer);
-                            System.out.println("Transakcja pomyślna!");
-                            this.generateBuyers(2);
+                            if (car.isClean) {
+                                this.cash += car.value;
+                                this.vehiclesOwned.remove(car);
+                                this.buyers.remove(buyer);
+                                System.out.println("Transakcja pomyślna!");
+                                this.generateBuyers(2);
+                                this.finishRound();
+                            }
+                            else System.out.println("Kupiec nie chce brudengo auta!");
                         }
                         else System.out.println("Kupiec nie chce zepsutego pojazdu!");
                     }
