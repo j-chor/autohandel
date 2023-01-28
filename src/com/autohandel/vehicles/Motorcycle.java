@@ -9,7 +9,7 @@ public class Motorcycle extends Vehicle implements HasType{
 
     public Motorcycle() { // TODO: DRY (Car, DeliveryCar)
         super();
-        Integer rnd = ThreadLocalRandom.current().nextInt(0, motorcycleBrands.length - 1);
+        Integer rnd = ThreadLocalRandom.current().nextInt(0, motorcycleBrands.length);
         VehicleModel vehicleModel = motorcycleBrands[rnd][motorcycleBrands[rnd].length - 1];
         this.value = vehicleModel.baseValue * ThreadLocalRandom.current().nextDouble(0.9, 1.1) * (this.brakes ? 1d : 0.95d)
                 * (this.suspension ? 1d : 0.85d) * (this.engine ? 1d : 0.55d) * (this.body ? 1d : 0.75d) * (this.transmission ? 1d : 0.75d);

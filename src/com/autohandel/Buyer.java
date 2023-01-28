@@ -18,7 +18,7 @@ public class Buyer {
     }
 
     private String randomType() {
-        Integer rnd = ThreadLocalRandom.current().nextInt(0, 2);
+        Integer rnd = ThreadLocalRandom.current().nextInt(0, 3);
         if (rnd == 0) return "car";
         else if (rnd == 1) return "delivery";
         else return "motorcycle";
@@ -26,10 +26,10 @@ public class Buyer {
 
     private String randomBrand(String carType) {
         if (carType == "car") {
-            return carBrands[randomInt(0, carBrands.length - 1)][0].getBrand();
+            return carBrands[randomInt(0, carBrands.length)][0].getBrand();
         } else if (carType == "delivery") {
-            return deliveryBrands[randomInt(0, deliveryBrands.length - 1)][0].getBrand();
-        } else return motorcycleBrands[randomInt(0, motorcycleBrands.length - 1)][0].getBrand();
+            return deliveryBrands[randomInt(0, deliveryBrands.length)][0].getBrand();
+        } else return motorcycleBrands[randomInt(0, motorcycleBrands.length)][0].getBrand();
     }
 
     public Buyer() {

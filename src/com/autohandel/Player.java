@@ -1,10 +1,14 @@
 package com.autohandel;
 
 import com.autohandel.vehicles.Car;
+import com.autohandel.vehicles.DeliveryCar;
+import com.autohandel.vehicles.Motorcycle;
 import com.autohandel.vehicles.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.autohandel.Buyer.randomInt;
 
 public class Player {
     public Integer getRoundCounter() {
@@ -25,6 +29,7 @@ public class Player {
     public void finishRound() {
         roundCounter++;
     }
+
     public void buyCar(Vehicle car) {
         if (car.value > this.cash) {
             System.out.println("Brak wystarczającej gotówki");
@@ -42,8 +47,17 @@ public class Player {
     }
 
     public void generateCars(Integer amount) {
-        for (int i = 0; i < amount; i++) {
+        int random1 = randomInt(0, 11);
+        int random2 = randomInt(0, 11 - random1);
+        int random3 = 10 - random1 - random2;
+        for (int i = 0; i < random1; i++) {
             this.vehiclesAvailable.add(new Car());
+        }
+        for (int i = 0; i < random2; i++) {
+            this.vehiclesAvailable.add(new DeliveryCar());
+        }
+        for (int i = 0; i < random3; i++) {
+            this.vehiclesAvailable.add(new Motorcycle());
         }
     }
 
@@ -53,19 +67,20 @@ public class Player {
         }
 
     }
+
     public Double getCash() {
         return roundTwoDecimals(this.cash);
     }
 
     public static Double roundTwoDecimals(Double value) {
-        return (Math.round(value * 100)/100d);
+        return (Math.round(value * 100) / 100d);
     }
 
     public void sellCar(Vehicle car, Buyer buyer) {
         if (this.vehiclesOwned.contains(car)) {
             if (buyer.cash >= car.value) {
                 if (buyer.typeWanted == car.getType()) {
-                    if (buyer.brandWanted1 == car.getBrand() || buyer.brandWanted2 == car.getBrand() ) {
+                    if (buyer.brandWanted1 == car.getBrand() || buyer.brandWanted2 == car.getBrand()) {
                         if (buyer.damageWanted || !car.getDamage()) {
                             if (car.isClean) {
                                 this.cash += car.value;
@@ -74,14 +89,10 @@ public class Player {
                                 System.out.println("Transakcja pomyślna!");
                                 this.generateBuyers(2);
                                 this.finishRound();
-                            }
-                            else System.out.println("Kupiec nie chce brudengo auta!");
-                        }
-                        else System.out.println("Kupiec nie chce zepsutego pojazdu!");
-                    }
-                    else System.out.println("Kupiec che inną markę!");
-                }
-                else System.out.println("Zły rodzaj pojazdu!");
+                            } else System.out.println("Kupiec nie chce brudengo auta!");
+                        } else System.out.println("Kupiec nie chce zepsutego pojazdu!");
+                    } else System.out.println("Kupiec che inną markę!");
+                } else System.out.println("Zły rodzaj pojazdu!");
             } else System.out.println("Kupca nie stać!");
         }
     }

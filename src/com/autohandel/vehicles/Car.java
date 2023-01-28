@@ -3,7 +3,6 @@ package com.autohandel.vehicles;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Car extends Vehicle implements HasType{
-    public final String type = "car";
     private static final VehicleModel[] mazda = {new VehicleModel("Mazda", "RX-7", 65000.0)};
     private static final VehicleModel[] volkswagen = {new VehicleModel("Volkswagen", "Golf", 20000.0),
             new VehicleModel("Volkswagen", "Polo", 9000.0),
@@ -33,6 +32,7 @@ public class Car extends Vehicle implements HasType{
         this.brand = vehicleModel.brand;
         this.model = vehicleModel.model;
         this.classification = vehicleModel.classification;
+        this.type = "osobowe";
     }
 
 

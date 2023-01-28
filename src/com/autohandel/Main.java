@@ -24,7 +24,7 @@ public class Main {
             try {
                 System.out.println("Tura nr " + player.getRoundCounter());
                 mainMenu(player);
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | IndexOutOfBoundsException | IllegalStateException e) {
                 System.out.println("Zła wartość");
             }
             Gameplay.scanner.nextLine();
