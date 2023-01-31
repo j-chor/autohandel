@@ -22,6 +22,11 @@ public class Car extends Vehicle implements HasType{
 
     public static final VehicleModel[][] carBrands = {mazda, volkswagen, audi, skoda};
 
+    @Override
+    public String getType() {
+        return "car";
+    }
+
     public Car() {
         super();
         Integer rnd = ThreadLocalRandom.current().nextInt(0, carBrands.length);
@@ -35,10 +40,5 @@ public class Car extends Vehicle implements HasType{
         this.type = "osobowe";
     }
 
-
-    @Override
-    public String getType() {
-        return "car";
-    }
 
 }

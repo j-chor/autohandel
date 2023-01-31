@@ -2,12 +2,11 @@ package com.autohandel.vehicles;
 
 import com.autohandel.Player;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.autohandel.Player.roundTwoDecimals;
 
-abstract public class Vehicle implements HasType, Damageable, HasBrand{
+abstract public class Vehicle implements HasType, Damageable, HasBrand {
     public Double value;
     public String type;
     String brand;
@@ -25,12 +24,18 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
 
     public Boolean getPart(Integer part) {
         switch (part) {
-            case 1: return brakes;
-            case 2: return suspension;
-            case 3 : return engine;
-            case 4: return body;
-            case 5: return transmission;
-            default: return null;
+            case 1:
+                return brakes;
+            case 2:
+                return suspension;
+            case 3:
+                return engine;
+            case 4:
+                return body;
+            case 5:
+                return transmission;
+            default:
+                return null;
         }
     }
 
@@ -58,24 +63,24 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
         return "Zepsuty/e";
     }
 
-    public static Double calculateFixPrice(Integer part, Integer mechanic) {
+    public Double calculatePartFixPrice(Integer part, Integer mechanic) {
         switch (part) {
             case 1:
-                return 1000.0 * getPriceMultiplier(mechanic);
+                return 1000.0 * getMechanicPriceMultiplier(mechanic) * getTypeBrandPriceMultiplier(this.getType(), this.getBrand());
             case 2:
-                return 2000 * getPriceMultiplier(mechanic);
+                return 2000 * getMechanicPriceMultiplier(mechanic) * getTypeBrandPriceMultiplier(this.getType(), this.getBrand());
             case 3:
-                return 10000 * getPriceMultiplier(mechanic);
+                return 10000 * getMechanicPriceMultiplier(mechanic) * getTypeBrandPriceMultiplier(this.getType(), this.getBrand());
             case 4:
-                return 3000 * getPriceMultiplier(mechanic);
+                return 3000 * getMechanicPriceMultiplier(mechanic) * getTypeBrandPriceMultiplier(this.getType(), this.getBrand());
             case 5:
-                return 5000 * getPriceMultiplier(mechanic);
+                return 5000 * getMechanicPriceMultiplier(mechanic) * getTypeBrandPriceMultiplier(this.getType(), this.getBrand());
             default:
                 return null;
         }
     }
 
-    private static Double getPriceMultiplier(Integer mechanic) {
+    private static Double getMechanicPriceMultiplier(Integer mechanic) {
         switch (mechanic) {
             case 1:
                 return 1.0;
@@ -88,20 +93,53 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
         }
     }
 
+    private static Double getTypeBrandPriceMultiplier(String type, String brand) {
+        switch (type) {
+            case "car":
+                switch (brand) {
+                    case "Audi":
+                        return 1.5;
+                    case "Skoda":
+                    case "Volswagen":
+                        return 1.3;
+                    case "Mazda":
+                        return 1.2;
+                }
+            case "delivery":
+                switch (brand) {
+                    case "Ford":
+                        return 1.3;
+                    case "Fiat":
+                    case "Renault":
+                        return 1.2;
+                    case "Mercedes":
+                        return 1.4;
+                }
+            case "motorcycle":
+                switch (brand) {
+                    case "Kawasaki":
+                        return 0.8;
+                }
+            default:
+                System.out.println("BUG!!");
+                return 2.0;
+        }
+    }
+
     public void washCar(Player player) {
         player.chargeCash(100.0);
         this.isClean = true;
         System.out.println("Umyto samochód");
     }
 
-    public void fix(Integer part, Boolean fixSuccess, Boolean breakSuccess, Player player, Double priceMultiplier) {
+    public void fix(Integer part, Boolean fixSuccess, Boolean breakSuccess, Player player, Double price) {
         if (breakSuccess) {
             breakPart(ThreadLocalRandom.current().nextInt(1, 6));
             System.out.println("Któraś z części została zepsuta!");
         }
+        player.chargeCash(price);
         switch (part) {
             case 1:
-                player.chargeCash(1000.0 * priceMultiplier);
                 if (fixSuccess) {
                     this.brakes = true;
                     this.value *= 1.1;
@@ -182,6 +220,7 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
     public String getBrand() {
         return brand;
     }
+
     @Override
     public String toString() {
         return brand + " " + model + ", Wartość: " + roundTwoDecimals(value)
@@ -191,19 +230,4 @@ abstract public class Vehicle implements HasType, Damageable, HasBrand{
                 + ", Karoseria: " + getPartStatus(this.body) + ", Skrzynia biegów: "
                 + getPartStatus(this.transmission) + ", Czystość: " + this.isClean;
     }
-
-    //    nwm na chuj mi to:
-    //    public Vehicle(CarType carType, Integer mileage, String color, Boolean brakes, Boolean suspension, Boolean engine, Boolean body, Boolean transmission) {
-//        this.value = carType.baseValue;
-//        this.brand = carType.brand;
-//        this.model = carType.model;
-//        this.mileage = mileage;
-//        this.color = color;
-//        this.classification = carType.classification;
-//        this.brakes = brakes;
-//        this.suspension = suspension;
-//        this.engine = engine;
-//        this.body = body;
-//        this.transmission = transmission;
-//    }
 }

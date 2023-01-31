@@ -12,6 +12,11 @@ public class DeliveryCar extends Vehicle implements HasType{
     private static VehicleModel[] fiat = {new VehicleModel("Fiat", "Ducato", 45000.0)};
     public static final VehicleModel[][] deliveryBrands = {mercedes, renault, ford, fiat};
 
+    @Override
+    public String getType() {
+        return "delivery";
+    }
+
     public DeliveryCar() {
         super();
         Integer rnd = ThreadLocalRandom.current().nextInt(0, deliveryBrands.length);
@@ -22,11 +27,7 @@ public class DeliveryCar extends Vehicle implements HasType{
         this.brand = vehicleModel.brand;
         this.model = vehicleModel.model;
         this.classification = vehicleModel.classification;
-    }
-
-    @Override
-    public String getType() {
-        return "delivery";
+        this.type = "dostawcze";
     }
 
 

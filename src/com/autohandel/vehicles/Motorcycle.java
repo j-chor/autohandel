@@ -7,6 +7,11 @@ public class Motorcycle extends Vehicle implements HasType{
 
     public static final VehicleModel[][] motorcycleBrands = {kawasaki};
 
+    @Override
+    public String getType() {
+        return "motorcycle";
+    }
+
     public Motorcycle() { // TODO: DRY (Car, DeliveryCar)
         super();
         Integer rnd = ThreadLocalRandom.current().nextInt(0, motorcycleBrands.length);
@@ -17,10 +22,6 @@ public class Motorcycle extends Vehicle implements HasType{
         this.brand = vehicleModel.brand;
         this.model = vehicleModel.model;
         this.classification = vehicleModel.classification;
-    }
-
-    @Override
-    public String getType() {
-        return "motorcycle";
+        this.type = "motocykl";
     }
 }

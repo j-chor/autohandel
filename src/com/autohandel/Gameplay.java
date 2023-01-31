@@ -97,27 +97,25 @@ public class Gameplay {
             return;
         }
         System.out.println("Wybierz mechanika: \n" +
-                "1. Janusz: " + calculateFixPrice(choice2, 1) + "\n" +
-                "2. Marian: " + calculateFixPrice(choice2, 2) + "\n" +
-                "3. Adrian: " + calculateFixPrice(choice2, 3) + "\n");
+                "1. Janusz: " + player.vehiclesOwned.get(choice1 - 1).calculatePartFixPrice(choice2, 1) + "\n" +
+                "2. Marian: " + player.vehiclesOwned.get(choice1 - 1).calculatePartFixPrice(choice2, 2) + "\n" +
+                "3. Adrian: " + player.vehiclesOwned.get(choice1 - 1).calculatePartFixPrice(choice2, 3) + "\n");
         Integer choice3 = scanner.nextInt();
         Boolean fixSuccess = null;
         Boolean breakSuccess = false;
-        Double priceMultiplier = 1.0;
+        Double price = player.vehiclesOwned.get(choice1 - 1).calculatePartFixPrice(choice2, choice3);
         switch (choice3) {
             case 1:
                 fixSuccess = true;
                 break;
             case 2:
                 fixSuccess = getRandomBoolean(0.9);
-                priceMultiplier = 0.6;
                 break;
             case 3:
                 fixSuccess = getRandomBoolean(0.8);
                 breakSuccess = getRandomBoolean(0.02);
-                priceMultiplier = 0.3;
         }
-        player.vehiclesOwned.get(choice1 - 1).fix(choice2, fixSuccess, breakSuccess, player, priceMultiplier);
+        player.vehiclesOwned.get(choice1 - 1).fix(choice2, fixSuccess, breakSuccess, player, price);
     }
 
 
