@@ -1,12 +1,9 @@
 package com.autohandel;
 
-import com.autohandel.vehicles.Car;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static com.autohandel.Gameplay.mainMenu;
-import static com.autohandel.vehicles.Vehicle.getRandomBoolean;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,6 +21,7 @@ public class Main {
             try {
                 System.out.println("Tura nr " + player.getRoundCounter());
                 mainMenu(player);
+
             } catch (InputMismatchException | IndexOutOfBoundsException | IllegalStateException e) {
                 System.out.println("Zła wartość");
             }

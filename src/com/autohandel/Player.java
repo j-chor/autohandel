@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.autohandel.Buyer.randomInt;
+import static com.autohandel.Gameplay.scanner;
 
 public class Player {
     public Integer getRoundCounter() {
@@ -20,6 +21,8 @@ public class Player {
     List<Vehicle> vehiclesOwned = new ArrayList<>();
     List<Vehicle> vehiclesAvailable = new ArrayList<>();
     List<Buyer> buyers = new ArrayList<>();
+    List<Double> installmentAmount = new ArrayList<>();
+    List<Integer> installmentsLeft = new ArrayList<>();
 
     public Player() {
         roundCounter = 0;
@@ -28,6 +31,7 @@ public class Player {
 
     public void finishRound() {
         roundCounter++;
+        this.giveInstallment();
     }
 
     public void buyCar(Vehicle car) {
@@ -93,12 +97,39 @@ public class Player {
                         } else System.out.println("Kupiec nie chce zepsutego pojazdu!");
                     } else System.out.println("Kupiec che inną markę!");
                 } else System.out.println("Zły rodzaj pojazdu!");
-            } else System.out.println("Kupca nie stać!");
+            } else {
+                System.out.println("Kupca nie stać!");
+                System.out.println("1. Sprzedaj samochód na raty" +
+                        "\n2. Anuluj transakcje");
+                int choice = scanner.nextInt();
+                if (choice == 1){
+                    this.sellAsLoan(car);
+                }
+            }
+        }
+    }
+
+    private void sellAsLoan(Vehicle car) {
+        installmentAmount.add((car.value * 1.1)/10);
+        installmentsLeft.add(10);
+    }
+
+    public void giveInstallment() {
+        for (int i = 0; i < this.installmentAmount.size(); i++) {
+            this.cash += this.installmentAmount.get(i);
+            this.installmentsLeft.set(i, this.installmentsLeft.get(i) - 1);
+            System.out.println("Przydzielono ci ratę kredytu: " +
+                    this.installmentAmount.get(i) + "Pozostało " + this.installmentsLeft.get(i) + "rat");
+            if (this.installmentsLeft.get(i) == 0) {
+                this.installmentAmount.remove(i);
+                this.installmentsLeft.remove(i);
+            }
         }
     }
 
     public void playRound() {
         roundCounter++;
+        this.giveInstallment();
     }
 
     public void printPlayerCars() {
