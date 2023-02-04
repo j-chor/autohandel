@@ -119,7 +119,7 @@ public class Player {
             this.cash += this.installmentAmount.get(i);
             this.installmentsLeft.set(i, this.installmentsLeft.get(i) - 1);
             System.out.println("Przydzielono ci ratę kredytu: " +
-                    this.installmentAmount.get(i) + "Pozostało " + this.installmentsLeft.get(i) + "rat");
+                    roundTwoDecimals(this.installmentAmount.get(i)) + "Pozostało " + this.installmentsLeft.get(i) + " rat");
             if (this.installmentsLeft.get(i) == 0) {
                 this.installmentAmount.remove(i);
                 this.installmentsLeft.remove(i);

@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DeliveryCar extends Vehicle implements HasType{
     Integer loadspace;
 
-    private static final VehicleModel[] mercedes = {new VehicleModel("Mercedes", "Sprinter", 500000.0)};
+    private static final VehicleModel[] mercedes = {new VehicleModel("Mercedes", "Sprinter", 50000.0)};
 
     private static VehicleModel[] renault = {new VehicleModel("Renault", "Master", 60000.0)};
     private static VehicleModel[] ford = {new VehicleModel("Ford", "Transit", 40000.0)};
